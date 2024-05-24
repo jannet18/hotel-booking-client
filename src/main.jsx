@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { AppContextProvider } from "./contexts/AppContext.jsx";
+import AppContextProvider from "./contexts/AppContext.jsx";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

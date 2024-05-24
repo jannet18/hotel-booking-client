@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
-import Register from "../pages/Register";
+// import Register from "../pages/Register";
 
 function Layout() {
   return (
