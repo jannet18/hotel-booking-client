@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
+import LogOutButton from "./LogOutButton.jsx";
 
 function Header() {
   const [menu, setMenu] = useState(false);
-  const { isLoggedIn } = useAppContext();
+  const { isLoggedIn, isLoading } = useAppContext();
+  if (isLoading) {
+    return null;
+  }
   return (
     <nav className="bg-blue-800">
       <div className="container mx-auto flex items-center justify-between px-3 py-3">
@@ -57,12 +61,11 @@ function Header() {
               <div>
                 <Link to="/my-bookings">My Bookings</Link>
                 <Link to="/my-hotels">My Hotels</Link>
-                <button>Sign Out</button>
+                <LogOutButton />
               </div>
             </>
           ) : (
             <>
-              {" "}
               <div className="text-blue-600 bg-white rounded-sm p-1 border border-blue-600">
                 <Link to="/register">
                   <button type="button">Register</button>
@@ -153,18 +156,35 @@ function Header() {
                 </svg>
                 List your Property
               </button>
-              <div className="flex flex-col gap-4 w-full">
-                <Link to="/register" className="w-full">
-                  <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
-                    Register
-                  </button>
-                </Link>
-                <Link to="/login" className="w-full">
-                  <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
-                    Sign In
-                  </button>
-                </Link>
-              </div>
+              {isLoggedIn ? (
+                <>
+                  <Link to="/my-bookings" className="w-full">
+                    <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
+                      My Bookings
+                    </button>
+                  </Link>
+                  <Link to="/my-hotels" className="w-full">
+                    <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
+                      My Hotels
+                    </button>
+                  </Link>
+                  <LogOutButton />
+                </>
+              ) : (
+                <div className="flex flex-col gap-4 w-full">
+                  <Link to="/register" className="w-full">
+                    <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
+                      Register
+                    </button>
+                  </Link>
+                  <Link to="/login" className="w-full">
+                    <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
+                      Sign In
+                    </button>
+                  </Link>
+                </div>
+              )}
+
               <div className="flex flex-col mt-6">
                 <h3 className="font-bold text-xl">Help and Support</h3>
                 <button

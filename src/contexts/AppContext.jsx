@@ -1,22 +1,42 @@
-import React, { useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import Toast from "../components/Toast";
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
-const AppContext = React.createContext(undefined);
+const AppContext = createContext(undefined);
 
-const AppContextProvider = ({ children }) => {
+export const AppContextProvider = ({ children }) => {
   const [toast, setToast] = useState(undefined);
-  const { isError } = useQuery(["validate-token"], apiClient.validateToken, {
-    retry: false,
-  });
+  const { data, isError, isLoading } = useQuery(
+    ["validate-token"],
+    apiClient.validateToken,
+    {
+      retry: false,
+    }
+  );
+
+  useEffect(() => {
+    if (isError) {
+      setToast({ message: "Token Invalid", type: "error" });
+    }
+  }, [isError]);
+
+  // const contextValue = {
+  //   showToast: (toastMessage) => {
+  //     setToast(toastMessage);
+  //   },
+  //   isLoggedIn: !isError && !isLoading && data?.valid,
+  //   isLoading,
+  // };
+
   return (
     <AppContext.Provider
       value={{
         showToast: (toastMessage) => {
           setToast(toastMessage);
         },
-        isLoggedIn: !isError,
+        isLoggedIn: data?.valid === true,
       }}
+      // value={contextValue}
     >
       {toast && (
         <Toast
@@ -30,9 +50,10 @@ const AppContextProvider = ({ children }) => {
   );
 };
 
+// export default AppContext;
 export const useAppContext = () => {
   const context = useContext(AppContext);
   return context;
 };
 
-export default AppContextProvider;
+// export default AppContextProvider;

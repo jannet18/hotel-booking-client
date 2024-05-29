@@ -1,19 +1,42 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import { useMutation, useQueryClient } from "react-query";
+import * as apiClient from "../api-client";
+import { useAppContext } from "../contexts/AppContext";
+import { useNavigate } from "react-router-dom";
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const { showToast } = useAppContext();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const {
     register,
     formState: { errors },
+    handleSubmit,
   } = useForm();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const mutation = useMutation(apiClient.login, {
+    onSuccess: async () => {
+      showToast({ message: "Login successful!", type: "SUCCESS" });
+      await queryClient.invalidateQueries("validateToken");
+      navigate("/");
+    },
+
+    onError: (error) => {
+      showToast({ message: error.message, type: "ERROR" });
+    },
+  });
+
+  const onSubmit = handleSubmit((data) => {
+    mutation.mutate(data);
+  });
   return (
     <div className="bg-white w-5/6 md:w-3/4 lg:w-2/3 xl:w-[500px] 2xl:w-[550px] mt-8 mx-auto px-16 py-8 rounded-lg shadow-2xl">
-      <form className="my-4 text-sm">
+      <form className="my-4 text-sm" onSubmit={onSubmit}>
         <h2 className="text-center text-3xl font-bold tracking-wide">
           Sign In
         </h2>
@@ -60,7 +83,7 @@ function Login() {
             )}
             <button
               type="button"
-              className="absolute right-10 bottom-[10%] bg-transparent flex items-center justify-center text-gray-700"
+              className="absolute right-10 top-[37%] bg-transparent flex items-center justify-center text-gray-700"
               onClick={togglePasswordVisibility}
             >
               {showPassword ? (
@@ -102,26 +125,27 @@ function Login() {
             </button>
           </label>
         </div>
+
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="remember_me"
+            id="remember_me"
+            {...register("remember_me", { required: "Check the box" })}
+          />
+          <label htmlFor="remember_me" className="text-gray-700">
+            Remember Me
+          </label>
+        </div>
+        <div className="my-4 flex items-center justify-center space-x-4">
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase"
+          >
+            Sign In
+          </button>
+        </div>
       </form>
-      <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          name="remember_me"
-          id="remember_me"
-          {...register("remember_me", { required: "Check the box" })}
-        />
-        <label htmlFor="remember_me" className="text-gray-700">
-          Remember Me
-        </label>
-      </div>
-      <div className="my-4 flex items-center justify-center space-x-4">
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase"
-        >
-          Sign In
-        </button>
-      </div>
     </div>
   );
 }

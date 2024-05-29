@@ -3,11 +3,12 @@ import { SiFacebook } from "react-icons/si";
 import { FaGoogle } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import * as apiClient from "../api-client";
-import { useMutation } from "react-query";
-import { useAppContext } from "../contexts/AppContext";
+import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../contexts/AppContext.jsx";
 
 function Register() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { showToast } = useAppContext();
   const [showPassword, setShowPassword] = useState(false);
@@ -27,23 +28,25 @@ function Register() {
   } = useForm();
 
   const mutation = useMutation(apiClient.register, {
-    onSuccess: () => {
+    onSuccess: async () => {
       showToast({ message: "Registration success!", type: "SUCCESS" });
+      await queryClient.invalidateQueries("validateToken");
       navigate("/");
     },
     onError: (error) => {
+      const errorMessage =
+        error.response.data.msg || error.message || "Registration failed";
       showToast({
-        message: { error: error.message } || "Registration failed",
-        type: "FAILED",
-        // message: "Registration Failed",
-        // type: "FAILED",
+        message: errorMessage,
+        type: "ERROR",
       });
     },
   });
   const onSubmit = handleSubmit((data) => {
     // console.log(data);
-    // mutation.mutate(data);
-    mutation.mutate({ ...data, remember_me: data.acceptTerms || false });
+    mutation.mutate(data);
+    console.log(data);
+    // mutation.mutate({ ...data, remember_me: data.acceptTerms || false });
   });
   return (
     <div className="flex flex-col  items-center justify-center w-full min-h-screen">
@@ -83,7 +86,7 @@ function Register() {
                 type="text"
                 className="border rounded w-full py-1 px-2 font-normal"
                 {...register("lastName", {
-                  required: "this field is required",
+                  required: "This field is required",
                 })}
               />
               {errors.lastName && (
@@ -123,7 +126,7 @@ function Register() {
               )}
               <button
                 type="button"
-                className="absolute right-10 bottom-[10%] bg-transparent flex items-center justify-center text-gray-700"
+                className="absolute right-10 top-[37%] bg-transparent flex items-center justify-center text-gray-700"
                 onClick={togglePasswordVisibility}
               >
                 {showPassword ? (
@@ -183,7 +186,7 @@ function Register() {
                 })}
               />
               {errors.confirmPassword && (
-                <span className="text-red-500 absolute left-16 top-14">
+                <span className="text-red-500 absolute left-0 top-14">
                   {errors.confirmPassword.message}
                 </span>
               )}
@@ -266,7 +269,7 @@ function Register() {
 
           <div className="my-4 flex items-center justify-center space-x-4">
             <button
-              //   type="submit"
+              type="submit"
               className="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase"
             >
               Create Account
