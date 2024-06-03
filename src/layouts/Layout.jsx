@@ -2,6 +2,8 @@ import React from "react";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
+import Search from "../pages/Search";
+import Home from "../pages/Home";
 // import Register from "../pages/Register";
 
 function Layout() {

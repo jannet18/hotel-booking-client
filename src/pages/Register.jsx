@@ -29,31 +29,47 @@ function Register() {
 
   const mutation = useMutation(apiClient.register, {
     onSuccess: async () => {
-      showToast({ message: "Registration success!", type: "SUCCESS" });
+      showToast({ message: "Registration Successful!", type: "SUCCESS" });
       await queryClient.invalidateQueries("validateToken");
       navigate("/");
     },
     onError: (error) => {
-      const errorMessage =
-        error.response.data.msg || error.message || "Registration failed";
-      showToast({
-        message: errorMessage,
-        type: "ERROR",
-      });
+      showToast({ message: error.message, type: "ERROR" });
     },
+    // onError: (error) => {
+    //   const errorMessage =
+    //     error.response.data.msg || error.message || "Registration failed";
+    //   showToast({
+    //     message: errorMessage,
+    //     type: "ERROR",
+    //   });
+    // },
   });
+
   const onSubmit = handleSubmit((data) => {
-    // console.log(data);
     mutation.mutate(data);
-    console.log(data);
-    // mutation.mutate({ ...data, remember_me: data.acceptTerms || false });
+    // console.log(data);
+    // try {
+    //   const response = await apiClient.register(data);
+    //   if (response.success) {
+    //     showToast({ message: "Registration Successful", type: "success" });
+    //     navigate("/");
+    //   } else {
+    //     showToast({ message: response.message, type: "error" });
+    //   }
+    // } catch (error) {
+    //   showToast({
+    //     message: "Registration failed. Please try again.",
+    //     type: "error",
+    //   });
+    // }
   });
   return (
     <div className="flex flex-col  items-center justify-center w-full min-h-screen">
       <div className="bg-white w-5/6 md:w-3/4 lg:w-2/3 xl:w-[500px] 2xl:w-[550px] mt-8 mx-auto px-16 py-8 rounded-lg shadow-2xl">
-        <form className="my-8 text-sm" onSubmit={onSubmit}>
-          <h2 className="text-center text-3xl font-bold tracking-wide">
-            Create an Account
+        <form className="my-8 text-sm" onSubmit={handleSubmit(onSubmit)}>
+          <h2 className="text-center text-3xl font-bold tracking-wide capitalize">
+            Create An Account
           </h2>
           <p className="text-center text-sm text-gray-600 mt-2">
             Already have an account?{" "}
@@ -117,7 +133,7 @@ function Register() {
                   required: "This field is required",
                   minLength: {
                     value: 6,
-                    message: "Password musr be atleast 6 characters ",
+                    message: "Password must be atleast 6 characters ",
                   },
                 })}
               />
@@ -269,6 +285,7 @@ function Register() {
 
           <div className="my-4 flex items-center justify-center space-x-4">
             <button
+              onSubmit={() => navigate("/")}
               type="submit"
               className="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase"
             >

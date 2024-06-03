@@ -5,7 +5,8 @@ import LogOutButton from "./LogOutButton.jsx";
 
 function Header() {
   const [menu, setMenu] = useState(false);
-  const { isLoggedIn, isLoading } = useAppContext();
+  const { isLoggedIn, isLoading, register } = useAppContext();
+
   if (isLoading) {
     return null;
   }
@@ -17,7 +18,7 @@ function Header() {
             <Link to="/">Vacay</Link>
           </span>
         </div>
-        <div className="hidden sm:flex flex-row items-center justify-center gap-6 ">
+        <div className="hidden sm:flex flex-row items-center justify-center gap-4 ">
           <button
             className="text-white hover:bg-blue-600 rounded-sm p-1"
             type="button"
@@ -58,19 +59,27 @@ function Header() {
           </button>
           {isLoggedIn ? (
             <>
-              <div>
-                <Link to="/my-bookings">My Bookings</Link>
-                <Link to="/my-hotels">My Hotels</Link>
-                <LogOutButton />
-              </div>
+              <Link
+                to="/my-bookings"
+                className="flex items-center text-white font-bold hover:bg-blue-600  px-2"
+              >
+                My Bookings
+              </Link>
+              <Link
+                to="/my-hotels"
+                className="flex items-center text-white font-bold hover:bg-blue-600   px-2"
+              >
+                My Hotels
+              </Link>
+              <LogOutButton />
             </>
           ) : (
             <>
-              <div className="text-blue-600 bg-white rounded-sm p-1 border border-blue-600">
+              {/* <div className="text-blue-600 bg-white rounded-sm p-1 border border-blue-600">
                 <Link to="/register">
                   <button type="button">Register</button>
                 </Link>
-              </div>
+              </div> */}
               <div className="text-blue-600 bg-white rounded-sm p-1 border border-blue-600">
                 <Link to="/login">
                   <button type="button">Sign In</button>
@@ -123,7 +132,7 @@ function Header() {
                 </svg>
               </button>
             </div>
-            <div className="flex flex-col items-start gap-4">
+            <div className="flex flex-col items-start gap-2">
               <button
                 type="button"
                 className="hover:text-blue-600 rounded-sm p-1"
@@ -158,25 +167,27 @@ function Header() {
               </button>
               {isLoggedIn ? (
                 <>
-                  <Link to="/my-bookings" className="w-full">
-                    <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
-                      My Bookings
-                    </button>
-                  </Link>
-                  <Link to="/my-hotels" className="w-full">
-                    <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
-                      My Hotels
-                    </button>
-                  </Link>
-                  <LogOutButton />
+                  <div className="flex flex-col w-full gap-4">
+                    <Link to="/my-bookings">
+                      <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
+                        My Bookings
+                      </button>
+                    </Link>
+                    <Link to="/my-hotels">
+                      <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
+                        My Hotels
+                      </button>
+                    </Link>
+                    <LogOutButton />
+                  </div>
                 </>
               ) : (
                 <div className="flex flex-col gap-4 w-full">
-                  <Link to="/register" className="w-full">
+                  {/* <Link to="/register" className="w-full">
                     <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
                       Register
                     </button>
-                  </Link>
+                  </Link> */}
                   <Link to="/login" className="w-full">
                     <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
                       Sign In
@@ -217,3 +228,47 @@ function Header() {
 }
 
 export default Header;
+// import { Link } from "react-router-dom";
+// import { useAppContext } from "../contexts/AppContext";
+// import LogOutButton from "./LogOutButton";
+// const Header = () => {
+//   const { isLoggedIn } = useAppContext();
+
+//   return (
+//     <div className="bg-blue-800 py-6">
+//       <div className="container mx-auto flex justify-between">
+//         <span className="text-3xl text-white font-bold tracking-tight">
+//           <Link to="/">MernHolidays.com</Link>
+//         </span>
+//         <span className="flex space-x-2">
+//           {isLoggedIn ? (
+//             <>
+//               <Link
+//                 className="flex items-center text-white px-3 font-bold hover:bg-blue-600"
+//                 to="/my-bookings"
+//               >
+//                 <button type="button">My Bookings</button>
+//               </Link>
+//               <Link
+//                 className="flex items-center text-white px-3 font-bold hover:bg-blue-600"
+//                 to="/my-hotels"
+//               >
+//                 <button type="button"> My Hotels</button>
+//               </Link>
+//               <LogOutButton />
+//             </>
+//           ) : (
+//             <Link
+//               to="/login"
+//               className="flex bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100"
+//             >
+//               Sign In
+//             </Link>
+//           )}
+//         </span>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Header;

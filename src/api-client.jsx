@@ -1,18 +1,27 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const register = async (formData) => {
-  const response = await fetch(`${API_BASE_URL}/api/users/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-  const responseBody = await response.json();
-  if (!response.ok) {
-    throw new Error(responseBody.message);
+    if (!response.ok) {
+      throw new Error("Failed to register");
+    }
+    return await response.json();
+  } catch (error) {
+    return { success: false, message: error.message };
   }
+
+  // const responseBody = await response.json();
+  // if (!response.ok) {
+  //   throw new Error(responseBody.message);
+  // }
 };
 
 export const login = async (formData) => {
@@ -25,22 +34,31 @@ export const login = async (formData) => {
     body: JSON.stringify(formData),
   });
 
-  const responseBody = await response.json();
   if (!response.ok) {
-    throw new Error(responseBody.message);
-    // console.log({ error: body.message });
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Login Failed!");
   }
-  return responseBody;
+  return response.json();
+
+  // if (!response.ok) {
+  //   // const responseBody = await response.json();
+  //   throw new Error(responseBody.message);
+  //   return res(401).json();
+  // }
+  // return responseBody;
 };
 export const validateToken = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
       credentials: "include",
     });
+
+    // if (response.ok) {
+    //   console.log("token received");
+    // }
     if (!response.ok) {
       const errorDetails = await response.json();
-      // throw new Error
-      console.log(
+      throw new Error(
         `Token invalid: ${errorDetails.message || response.statusText}`
       );
     }

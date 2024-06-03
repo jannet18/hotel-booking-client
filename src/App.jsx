@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -18,30 +18,17 @@ function App() {
             </Layout>
           }
         />
-        <Route
+        {/* <Route
           path="/search"
           element={
             <Layout>
               <Search />
             </Layout>
           }
-        />
-        <Route
-          path="/register"
-          element={
-            <Layout>
-              <Register />
-            </Layout>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <Layout>
-              <Login />
-            </Layout>
-          }
-        />
+        /> */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   );

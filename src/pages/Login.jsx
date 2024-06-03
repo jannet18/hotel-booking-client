@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
+
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { showToast } = useAppContext();
@@ -21,7 +22,7 @@ function Login() {
 
   const mutation = useMutation(apiClient.login, {
     onSuccess: async () => {
-      showToast({ message: "Login successful!", type: "SUCCESS" });
+      showToast({ message: "Sign in Successful!", type: "SUCCESS" });
       await queryClient.invalidateQueries("validateToken");
       navigate("/");
     },
@@ -47,7 +48,7 @@ function Login() {
             className="text-blue-600 hover:text-blue-700 hover:underline"
             title="Sign In"
           >
-            Sign Up here
+            Create an Account here
           </a>
         </p>
         <label className="text-sm text-gray-700 font-bold flex-1">
@@ -74,7 +75,7 @@ function Login() {
                 required: "This field is required",
                 minLength: {
                   value: 6,
-                  message: "Password musr be atleast 6 characters ",
+                  message: "Password must be atleast 6 characters ",
                 },
               })}
             />
@@ -131,7 +132,10 @@ function Login() {
             type="checkbox"
             name="remember_me"
             id="remember_me"
-            {...register("remember_me", { required: "Check the box" })}
+            {...register(
+              "remember_me"
+              // { required: "Check the box" }
+            )}
           />
           <label htmlFor="remember_me" className="text-gray-700">
             Remember Me
@@ -140,9 +144,9 @@ function Login() {
         <div className="my-4 flex items-center justify-center space-x-4">
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase"
+            className="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase cursor-pointer"
           >
-            Sign In
+            Login
           </button>
         </div>
       </form>
