@@ -4,8 +4,11 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
+import AddHotel from "./pages/AddHotel";
+import { useAppContext } from "./contexts/AppContext";
 
 function App() {
+  const { isLoggedIn } = useAppContext();
   return (
     <>
       <Routes>
@@ -26,6 +29,19 @@ function App() {
             </Layout>
           }
         /> */}
+        {/* {isLoggedIn && ( */}
+        <>
+          <Route
+            exact
+            path="/add-hotel"
+            element={
+              <Layout>
+                <AddHotel />
+              </Layout>
+            }
+          />
+        </>
+        {/* )} */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Navigate to="/" />} />
