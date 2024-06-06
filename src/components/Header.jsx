@@ -5,7 +5,7 @@ import LogOutButton from "./LogOutButton.jsx";
 
 function Header() {
   const [menu, setMenu] = useState(false);
-  const { isLoggedIn, isLoading, register } = useAppContext();
+  const { isLoggedIn, isLoading } = useAppContext();
 
   if (isLoading) {
     return null;

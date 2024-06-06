@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+let type = "SUCCESS" || "ERROR";
 
 function Toast({ message, type, onClose }) {
   useEffect(() => {

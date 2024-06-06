@@ -67,7 +67,7 @@ function Register() {
   return (
     <div className="flex flex-col  items-center justify-center w-full min-h-screen">
       <div className="bg-white w-5/6 md:w-3/4 lg:w-2/3 xl:w-[500px] 2xl:w-[550px] mt-8 mx-auto px-16 py-8 rounded-lg shadow-2xl">
-        <form className="my-8 text-sm" onSubmit={handleSubmit(onSubmit)}>
+        <form className="my-8 text-sm" onSubmit={onSubmit}>
           <h2 className="text-center text-3xl font-bold tracking-wide capitalize">
             Create An Account
           </h2>
