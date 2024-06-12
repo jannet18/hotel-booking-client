@@ -93,21 +93,6 @@ export const addMyHotel = async (formData) => {
 
   return response.json();
 };
-// export const addMyHotel = async ({ formData: HotelFormData }) => {
-//   const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
-//     method: "POST",
-//     credentials: "include",
-//     body: HotelFormData,
-//   });
-//   console.log(formData);
-//   if (!response.ok) {
-//     const errorData = await response.json();
-//     throw new Error(
-//       `Failed to add hotel: ${errorData.message || response.statusText}`
-//     );
-//   }
-//   return response.json();
-// };
 
 export const fetchMyHotels = async () => {
   const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {

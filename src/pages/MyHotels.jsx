@@ -4,24 +4,24 @@ import { Link } from "react-router-dom";
 import * as apiClient from "../api-client";
 
 function MyHotels() {
-  const {
-    data,
-    // error,
-    isLoading,
-  } = useQuery("fetchMyHotels", apiClient.fetchMyHotels, {
-    onError: () => {},
-  });
+  const { data, isLoading } = useQuery(
+    "fetchMyHotels",
+    apiClient.fetchMyHotels,
+    {
+      onError: () => {},
+    }
+  );
 
-  console.log(data);
+  // console.log(data);
   if (isLoading) {
     return <span>Loading...</span>;
   }
-  //   if (!Array.isArray(hotelData) || hotelData.length === 0) {
-  //     return <span>No Hotel found</span>;
-  //   }
+  if (!Array.isArray(data) || data.length === 0) {
+    return <span>No Hotel found</span>;
+  }
   return (
     <div className="space-y-5">
-      <span>
+      <span className="flex justify-between">
         <h1 className="text-3xl font-bold">My Hotels</h1>
         <Link
           to="/add-hotel"
@@ -30,7 +30,7 @@ function MyHotels() {
           Add Hotel
         </Link>
       </span>
-      <div className="grid grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 gap-8">
         {data?.map((hotel, i) => (
           <div
             key={i}
@@ -56,6 +56,7 @@ function MyHotels() {
                 </svg>
                 {hotel.city}, {hotel.country}
               </div>
+
               <div className="border border-slate-300 rounded-sm p-3 flex items-center ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -63,24 +64,7 @@ function MyHotels() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"
-                  />
-                </svg>
-                {hotel.city}, {hotel.country}
-              </div>
-              <div className="border border-slate-300 rounded-sm p-3 flex items-center ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="size-6"
+                  className="size-6 mr-1"
                 >
                   <path
                     strokeLinecap="round"
@@ -97,7 +81,7 @@ function MyHotels() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
+                  className="size-6 mr-1"
                 >
                   <path
                     strokeLinecap="round"
@@ -105,7 +89,7 @@ function MyHotels() {
                     d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"
                   />
                 </svg>
-                {hotel.pricePerNight}
+                €{hotel.pricePerNight} per Night
               </div>
               <div className="border border-slate-300 rounded-sm p-3 flex items-center ">
                 <svg
@@ -114,7 +98,7 @@ function MyHotels() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
+                  className="size-6 mr-1"
                 >
                   <path
                     strokeLinecap="round"
@@ -122,7 +106,7 @@ function MyHotels() {
                     d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"
                   />
                 </svg>
-                {hotel.adultCount} adults, {hotel.childCount} children
+                {hotel.adultCount} Adults, {hotel.childCount} Children
               </div>
               <div className="border border-slate-300 rounded-sm p-3 flex items-center ">
                 <svg
@@ -131,7 +115,7 @@ function MyHotels() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
+                  className="size-6 mr-1"
                 >
                   <path
                     strokeLinecap="round"
@@ -139,10 +123,10 @@ function MyHotels() {
                     d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
                   />
                 </svg>
-                {hotel.starRating} starRating
+                {hotel.starRating} Star Rating
               </div>
             </div>
-            <span className="flex justify-items-end">
+            <span className="flex justify-end">
               <Link
                 to={`/edit-hotel/${hotel._id}`}
                 className="flex bg-blue-600 text-white text-xl font-bold p-2 hover:bg-blue-400"
