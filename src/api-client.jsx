@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export const register = async (formData) => {
   try {
@@ -80,15 +80,42 @@ export const logOut = async () => {
   }
 };
 
-export const addMyHotel = async (hotelFormData) => {
+export const addMyHotel = async (formData) => {
   const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
     method: "POST",
     credentials: "include",
-    body: hotelFormData,
+    body: formData,
   });
-
+  console.log(formData);
   if (!response.ok) {
     throw new Error("Failed to add hotel");
+  }
+
+  return response.json();
+};
+// export const addMyHotel = async ({ formData: HotelFormData }) => {
+//   const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+//     method: "POST",
+//     credentials: "include",
+//     body: HotelFormData,
+//   });
+//   console.log(formData);
+//   if (!response.ok) {
+//     const errorData = await response.json();
+//     throw new Error(
+//       `Failed to add hotel: ${errorData.message || response.statusText}`
+//     );
+//   }
+//   return response.json();
+// };
+
+export const fetchMyHotels = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+    method: "GET",
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching hotels");
   }
   return response.json();
 };

@@ -61,13 +61,13 @@ function Header() {
             <>
               <Link
                 to="/my-bookings"
-                className="flex items-center text-white font-bold hover:bg-blue-600  px-2"
+                className="flex items-center text-white font-bold hover:bg-blue-600  rounded-sm px-2"
               >
                 My Bookings
               </Link>
               <Link
                 to="/my-hotels"
-                className="flex items-center text-white font-bold hover:bg-blue-600   px-2"
+                className="flex items-center text-white font-bold hover:bg-blue-600   rounded-sm px-2"
               >
                 My Hotels
               </Link>

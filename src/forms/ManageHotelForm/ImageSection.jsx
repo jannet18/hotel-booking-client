@@ -14,6 +14,7 @@ function ImageSection() {
         <input
           type="file"
           multiple
+          name="imageFiles"
           accept="image/*"
           className="w-full text-gray-700 font-normal"
           {...register("imageFiles", {
