@@ -10,6 +10,7 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }) => {
   const formMethods = useForm();
   const { handleSubmit, reset } = formMethods;
 
+  // repopulate the form
   useEffect(() => {
     reset(hotel);
   }, [hotel, reset]);
@@ -39,6 +40,11 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }) => {
       });
     }
 
+    if (formDataJson.imageUrls) {
+      formDataJson.imageUrls.forEach((url, index) => {
+        formData.append(`imageUrls[${index}]`, url);
+      });
+    }
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append(`imageFiles`, imageFile);
     });

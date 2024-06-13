@@ -84,7 +84,7 @@ function Login() {
             )}
             <button
               type="button"
-              className="absolute right-10 top-[37%] bg-transparent flex items-center justify-center text-gray-700"
+              className="absolute right-10 top-[44%] bg-transparent flex items-center justify-center text-gray-700"
               onClick={togglePasswordVisibility}
             >
               {showPassword ? (
