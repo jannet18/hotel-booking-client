@@ -18,11 +18,6 @@ export const register = async (formData) => {
   } catch (error) {
     return { success: false, message: error.message };
   }
-
-  // const responseBody = await response.json();
-  // if (!response.ok) {
-  //   throw new Error(responseBody.message);
-  // }
 };
 
 export const login = async (formData) => {
@@ -40,23 +35,12 @@ export const login = async (formData) => {
     throw new Error(errorData.message || "Login Failed!");
   }
   return response.json();
-
-  // if (!response.ok) {
-  //   // const responseBody = await response.json();
-  //   throw new Error(responseBody.message);
-  //   return res(401).json();
-  // }
-  // return responseBody;
 };
 export const validateToken = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
       credentials: "include",
     });
-
-    // if (response.ok) {
-    //   console.log("token received");
-    // }
     if (!response.ok) {
       const errorDetails = await response.json();
       throw new Error(
@@ -106,29 +90,34 @@ export const fetchMyHotels = async () => {
 };
 
 export const fetchMyHotelById = async (hotelId) => {
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels/${hotelId}`, {
-    method: "GET",
-    credentials: "include",
-  });
-  if (!response.ok) {
-    throw new Error("Error finding hotel");
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/my-hotels/${hotelId}`, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error("Error finding hotel");
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Error updating hotel", error);
+    throw error;
   }
-  return response.json();
 };
 
-export const updateMyHotelById = async (hotelId, formData) => {
-  const response = fetch(
-    // `${API_BASE_URL}/api/my-hotels/${formData.get("hotelId")}}`
-    `${API_BASE_URL}/api/my-hotels/${hotelId}`,
+export const updateMyHotelById = async (formData) => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/my-hotels/${formData.get("hotelId")}`,
     {
       method: "PUT",
-      credentials: "include",
       body: formData,
+      credentials: "include",
     }
   );
 
   if (!response.ok) {
-    throw new Error("Failed to update hotel");
+    throw new Error("Failed to update Hotel");
   }
+
   return response.json();
 };

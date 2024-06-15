@@ -7,7 +7,7 @@ import GuestsSection from "./GuestsSection";
 import ImageSection from "./ImageSection";
 
 const ManageHotelForm = ({ onSave, isLoading, hotel }) => {
-  const formMethods = useForm();
+  const formMethods = useForm({ defaultValues: hotel || {} });
   const { handleSubmit, reset } = formMethods;
 
   // repopulate the form
@@ -34,12 +34,11 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }) => {
       formData.append(`facilities[${index}]`, facility);
     });
 
-    if (formDataJson.imageUrls) {
-      formDataJson.imageUrls.forEach((url, index) => {
-        formData.append(`imageUrls[${index}]`, url);
-      });
-    }
-
+    // if (formDataJson.imageUrls) {
+    //   formDataJson.imageUrls.forEach((url, index) => {
+    //     formData.append(`existingImageUrls[${index}]`, url);
+    //   });
+    // }
     if (formDataJson.imageUrls) {
       formDataJson.imageUrls.forEach((url, index) => {
         formData.append(`imageUrls[${index}]`, url);
@@ -60,11 +59,11 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }) => {
         <FacilitiesSection />
         <GuestsSection />
         <ImageSection />
-        <span className="flex justify-end">
+        <span className="flex items-center justify-end">
           <button
             disabled={isLoading}
             type="submit"
-            className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl disabled:bg-gray-500"
+            className="bg-blue-600 rounded-sm text-white p-2 font-bold hover:bg-blue-500 text-xl disabled:bg-gray-500"
           >
             {isLoading ? "Saving..." : "Save"}
           </button>

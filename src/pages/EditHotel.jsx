@@ -5,36 +5,72 @@ import { useMutation, useQuery } from "react-query";
 import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/AppContext";
 
-function EditHotel() {
+// function EditHotel() {
+//   const { hotelId } = useParams();
+//   const { showToast } = useAppContext();
+//   const navigate = useNavigate();
+//   const { data } = useQuery(
+//     ["fetchMyHotelById", hotelId],
+//     () => apiClient.fetchMyHotelById(hotelId || ""),
+//     {
+//       enabled: !!hotelId,
+//       onError: () => {
+//         showToast({ message: "Error fetching hotel", type: "ERROR" });
+//       },
+//     }
+//   );
+//   const { mutate } = useMutation(
+//     (formData) => {
+//       apiClient.updateMyHotelById(hotelId, formData);
+//     },
+//     {
+//       onSuccess: () => {
+//         showToast({ message: "Hotel updated!", type: "SUCCESS" });
+//         navigate("/my-hotels");
+//       },
+//       onError: () => {
+//         showToast({ message: "Error updating hotel", type: "ERROR" });
+//       },
+//     }
+//   );
+
+//   const handleSave = (formData) => {
+//     console.log(formData);
+//     mutate(formData);
+//   };
+//   return <ManageHotelForm hotel={data} onSave={handleSave} />;
+// }
+// export default EditHotel;
+
+const EditHotel = () => {
   const { hotelId } = useParams();
   const { showToast } = useAppContext();
   const navigate = useNavigate();
   const { data } = useQuery(
-    ["fetchMyHotelById", hotelId],
+    "fetchMyHotelById",
     () => apiClient.fetchMyHotelById(hotelId || ""),
     {
       enabled: !!hotelId,
     }
   );
-  const { mutate, isLoading } = useMutation(
-    (formData) => apiClient.updateMyHotelById(hotelId, formData),
-    {
-      onSuccess: () => {
-        showToast({ message: "Hotel updated!", type: "SUCCESS" });
-        navigate("/my-hotels");
-      },
-      onError: () => {
-        showToast({ message: "Error updating Hotels", type: "ERROR" });
-      },
-    }
-  );
+
+  const { mutate, isLoading } = useMutation(apiClient.updateMyHotelById, {
+    onSuccess: () => {
+      showToast({ message: "Hotel Updated!", type: "SUCCESS" });
+      navigate("/my-hotels");
+    },
+    onError: () => {
+      showToast({ message: "Error Updating Hotel", type: "ERROR" });
+    },
+  });
 
   const handleSave = (formData) => {
     mutate(formData);
   };
+
   return (
     <ManageHotelForm hotel={data} onSave={handleSave} isLoading={isLoading} />
   );
-}
+};
 
 export default EditHotel;

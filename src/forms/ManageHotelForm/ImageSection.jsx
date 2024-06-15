@@ -9,26 +9,28 @@ function ImageSection() {
     setValue,
   } = useFormContext();
 
-  const existingImageUrls = watch("imageUrls");
+  const existingImageUrls = watch("imageUrls") || [];
 
-  const handleDelete = (e, imageUrl) => {
-    e.preventDefault();
-    setValue(
-      "imageUrls",
-      existingImageUrls.filter((url) => url !== imageUrl)
-    );
+  const handleDelete = (event, imageUrl) => {
+    event.preventDefault();
+    const updatedUrls = existingImageUrls.filter((url) => url !== imageUrl);
+    setValue("imageUrls", updatedUrls, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
   };
   return (
     <div>
       <h1 className="text-2xl font-bold mb-3">Images</h1>
       <div className="border rounded p-4 flex flex-col gap-4">
-        {existingImageUrls && (
+        {existingImageUrls.length > 0 && (
           <div className="grid grid-cols-6 gap-4">
             {existingImageUrls.map((url, index) => (
               <div key={index} className="relative group">
                 <img src={url} className="min-h-full object-cover" />
                 <button
-                  onClick={(e) => handleDelete(e, url)}
+                  type="button"
+                  onClick={(event) => handleDelete(event, url)}
                   className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 text-white"
                 >
                   Delete
@@ -39,14 +41,14 @@ function ImageSection() {
         )}
         <input
           type="file"
-          multiple
-          name="imageFiles"
+          name="imageFiles[]"
           accept="image/*"
+          multiple="multiple"
           className="w-full text-gray-700 font-normal"
           {...register("imageFiles", {
             validate: (imageFiles) => {
               const totalLength =
-                imageFiles.length + (existingImageUrls?.length || 0);
+                imageFiles?.length || 0 + (existingImageUrls?.length || 0);
               if (totalLength === 0) {
                 return "At least one image should be added";
               }
@@ -57,6 +59,7 @@ function ImageSection() {
             },
           })}
         />
+        <br />
       </div>
       {errors.imageFiles && (
         <span className="text-red-500 text-sm font-bold">
