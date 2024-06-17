@@ -23,14 +23,14 @@ function App() {
             </Layout>
           }
         />
-        {/* <Route
+        <Route
           path="/search"
           element={
             <Layout>
               <Search />
             </Layout>
           }
-        /> */}
+        />
         {isLoggedIn && (
           <>
             <Route
