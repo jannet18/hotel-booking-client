@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import Toast from "../components/Toast";
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
-const AppContext = createContext("");
+const AppContext = React.createContext("");
 
 export const AppContextProvider = ({ children }) => {
   const [toast, setToast] = useState(undefined);

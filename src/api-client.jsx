@@ -121,3 +121,49 @@ export const updateMyHotelById = async (formData) => {
 
   return response.json();
 };
+
+export const SearchParams = {
+  destination: "",
+  checkIn: "",
+  checkOut: "",
+  adultCount: "",
+  childCount: "",
+  page: "",
+  facilities: [],
+  types: [],
+  stars: [],
+  maxprice: "",
+  sortOption: "",
+};
+
+export const searchHotels = async (SearchParams) => {
+  const queryParams = new URLSearchParams();
+  queryParams.append("destination", SearchParams?.destination || "");
+  queryParams.append("checkIn", SearchParams?.checkIn || "");
+  queryParams.append("checkOut", SearchParams?.checkOut || "");
+  queryParams.append("adultCount", SearchParams?.adultCount || "");
+  queryParams.append("childCount", SearchParams?.childCount || "");
+  queryParams.append("page", SearchParams?.page || "");
+  queryParams.append("maxPrice", SearchParams?.maxprice || "");
+  queryParams.append("sortOption", SearchParams?.sortOption || "");
+
+  SearchParams.types?.forEach((type) => {
+    queryParams.append("types", type);
+  });
+  SearchParams.facilities?.forEach((facility) => {
+    queryParams.append("facilities", facility);
+  });
+
+  SearchParams.stars?.forEach((star) => {
+    queryParams.append("stars", star);
+  });
+  const response = await fetch(
+    `${API_BASE_URL}/api/hotels/search?${queryParams}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Error fetching hotels");
+  }
+
+  return response.json();
+};
