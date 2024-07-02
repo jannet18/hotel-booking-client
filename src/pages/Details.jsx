@@ -15,9 +15,9 @@ function Details() {
   );
   return (
     <div className="space-y-6">
-      <div>
-        <span className="flex flex-row">
-          {Array.from({ length: hotel?.starRating }).map(() => (
+      <div className="flex flex-row">
+        {Array.from({ length: hotel?.starRating }).map((_, index) => (
+          <span key={index}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -32,12 +32,12 @@ function Details() {
                 d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
               />
             </svg>
-          ))}
-        </span>
+          </span>
+        ))}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {hotel?.imageUrls?.map((image, i) => (
-          <div className="h-[300px]">
+          <div key={i} className="h-[300px]">
             <img
               key={i}
               src={image}
@@ -50,7 +50,7 @@ function Details() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
         {hotel?.facilities?.map((facility, i) => (
           <div key={i} className="border border-slate-300 rounded-sm p-3">
-            {facility}
+            <span className="border">{facility}</span>
           </div>
         ))}
       </div>

@@ -13,8 +13,8 @@ const SearchResultsCard = ({ hotel }) => {
       <div className="grid grid-rows-[1fr_2fr_1fr]">
         <div className="">
           <div className="flex items-center">
-            {Array.from({ length: hotel?.starRating }).map((i) => (
-              <span key={i} className="flex flex-row  gap-2">
+            {Array.from({ length: hotel?.starRating }).map((_, index) => (
+              <span key={index} className="flex flex-row  gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -45,20 +45,21 @@ const SearchResultsCard = ({ hotel }) => {
           <div className="line-clamp-4">{hotel?.description}</div>
         </div>
         <div className="grid grid-cols-2 items-end whitespace-nowrap">
-          <div className="flex gap-3 items-center">
-            {hotel?.facilities.slice(0, 3).map((facility, id) => (
+          <div className="flex gap-1 items-center">
+            {hotel.facilities.slice(0, 3).map((facility, i) => (
               <span
-                key={id}
-                className="bg-slate-300 p-2 rounded-lg font-bold text-sm whitespace-nowrap"
+                key={i}
+                className="bg-slate-300 p-2 rounded-sm font-bold text-xs whitespace-nowrap"
               >
                 {facility}
               </span>
             ))}
             <span className="text-sm">
               {hotel.facilities.length > 3 &&
-                `+ ${hotel?.facilities.length - 3} more`}
+                `+${hotel.facilities.length - 3} more`}
             </span>
           </div>
+
           <div className="flex flex-col items-end gap-3">
             <span className="font-bold">
               Ksh {hotel?.pricePerNight} per Night

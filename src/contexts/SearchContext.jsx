@@ -3,12 +3,29 @@ import React, { useContext, useState } from "react";
 const SearchContext = React.createContext();
 
 export const SearchContextProvider = ({ children }) => {
-  const [destination, setDestination] = useState("");
-  const [checkIn, setCheckIn] = useState(new Date());
-  const [checkOut, setCheckOut] = useState(new Date());
-  const [adultCount, setAdultCount] = useState(1);
-  const [childCount, setChildCount] = useState(0);
-  const [hotelId, setHotelId] = useState("");
+  const getInitialDate = (key, defaultValue) => {
+    const dateStr = sessionStorage.getItem(key);
+    const date = dateStr ? new Date(dateStr) : defaultValue;
+    return isNaN(date.getTime()) ? defaultValue : date;
+  };
+  const [destination, setDestination] = useState(() =>
+    sessionStorage.getItem("destination" || "")
+  );
+  const [checkIn, setCheckIn] = useState(
+    () => new Date(getInitialDate("checkIn") || new Date().toISOString())
+  );
+  const [checkOut, setCheckOut] = useState(
+    () => new Date(getInitialDate("checkOut") || new Date().toISOString())
+  );
+  const [adultCount, setAdultCount] = useState(() =>
+    parseInt(sessionStorage.getItem("adultCount") || "1", 20)
+  );
+  const [childCount, setChildCount] = useState(() =>
+    parseInt(sessionStorage.getItem("childCount" || "0", 20))
+  );
+  const [hotelId, setHotelId] = useState(
+    () => sessionStorage.getItem("hotelId") || ""
+  );
 
   const saveSearchValues = (
     destination,
@@ -26,6 +43,12 @@ export const SearchContextProvider = ({ children }) => {
     if (hotelId) {
       setHotelId(hotelId);
     }
+
+    sessionStorage.setItem("destination", destination);
+    sessionStorage.setItem("checkIn", checkIn?.toISOString());
+    sessionStorage.setItem("checkOut", checkOut?.toISOString());
+    sessionStorage.setItem("adultCount", childCount?.toString());
+    sessionStorage.setItem("childCount", childCount?.toString());
   };
 
   return (

@@ -14,7 +14,7 @@ function FaciltyTypeFilter({ selectedFacility, onChange }) {
             checked={selectedFacility?.includes(facility)}
             onChange={onChange}
           />
-          <span>{facility}</span>
+          <span className="">{facility}</span>
         </label>
       ))}
     </div>

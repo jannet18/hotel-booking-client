@@ -51,14 +51,14 @@ function Header() {
             </svg>
           </button>
 
-          <button
-            type="button"
-            className="text-white rounded-sm hover:bg-blue-600 p-1"
-          >
-            List your Property
-          </button>
           {isLoggedIn ? (
             <>
+              <Link
+                to="/add-hotel"
+                className="text-white rounded-sm hover:bg-blue-600 p-1"
+              >
+                List your Property
+              </Link>
               <Link
                 to="/my-bookings"
                 className="flex items-center text-white font-bold hover:bg-blue-600  rounded-sm px-2"

@@ -1,5 +1,41 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
+// export const fetchCurrentUser = async () => {
+//   const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+//     credentials: "include",
+//   });
+//   console.log(response);
+//   if (!response.ok) {
+//     throw new Error("Error fetching user");
+//   }
+//   console.log(response);
+//   return response.json();
+// };
+
+export const fetchCurrentUser = async () => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 seconds timeout
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+      credentials: "include",
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error("Error fetching user");
+    }
+    return response.json();
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error.name === "AbortError") {
+      throw new Error("Request timed out");
+    }
+    throw error;
+  }
+};
+
 export const register = async (formData) => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/users/register`, {
@@ -122,41 +158,43 @@ export const updateMyHotelById = async (formData) => {
   return response.json();
 };
 
-export const SearchParams = {
-  destination: "",
-  checkIn: "",
-  checkOut: "",
-  adultCount: "",
-  childCount: "",
-  page: "",
-  facilities: [],
-  types: [],
-  stars: [],
-  maxprice: "",
-  sortOption: "",
-};
+// export const searchParams = {
+//   destination: "",
+//   checkIn: "",
+//   checkOut: "",
+//   adultCount: "",
+//   childCount: "",
+//   page: "",
+//   facilities: [],
+//   types: [],
+//   stars: [],
+//   maxprice: "",
+//   sortOption: "",
+// };
 
-export const searchHotels = async (SearchParams) => {
+export const searchHotels = async (searchParams) => {
   const queryParams = new URLSearchParams();
-  queryParams.append("destination", SearchParams?.destination || "");
-  queryParams.append("checkIn", SearchParams?.checkIn || "");
-  queryParams.append("checkOut", SearchParams?.checkOut || "");
-  queryParams.append("adultCount", SearchParams?.adultCount || "");
-  queryParams.append("childCount", SearchParams?.childCount || "");
-  queryParams.append("page", SearchParams?.page || "");
-  queryParams.append("maxPrice", SearchParams?.maxprice || "");
-  queryParams.append("sortOption", SearchParams?.sortOption || "");
+  queryParams.append("destination", searchParams?.destination || "");
+  queryParams.append("checkIn", searchParams?.checkIn || "");
+  queryParams.append("checkOut", searchParams?.checkOut || "");
+  queryParams.append("adultCount", searchParams?.adultCount || "");
+  queryParams.append("childCount", searchParams?.childCount || "");
+  queryParams.append("page", searchParams?.page || "");
+  queryParams.append("maxPrice", searchParams?.maxprice || "");
+  queryParams.append("sortOption", searchParams?.sortOption || "");
 
-  SearchParams.types?.forEach((type) => {
+  searchParams.types?.forEach((type) => {
     queryParams.append("types", type);
   });
-  SearchParams.facilities?.forEach((facility) => {
+  searchParams.facilities?.forEach((facility) => {
     queryParams.append("facilities", facility);
   });
 
-  SearchParams.stars?.forEach((star) => {
+  searchParams.stars?.forEach((star) => {
     queryParams.append("stars", star);
   });
+  console.log("Search Parameters:", searchParams); // Debug statement
+  console.log("Query Params String:", queryParams.toString());
   const response = await fetch(
     `${API_BASE_URL}/api/hotels/search?${queryParams}`
   );
@@ -167,6 +205,23 @@ export const searchHotels = async (SearchParams) => {
 
   return response.json();
 };
+
+// export const searchHotels = async (searchParams) => {
+//   const queryParams = new URLsearchParams(searchParams);
+
+//   const response = await fetch(
+//     `${API_BASE_URL}/api/hotels/search?${queryParams}`,
+//     {
+//       credentials: "include",
+//     }
+//   );
+
+//   if (!response.ok) {
+//     throw new Error("Error fetching hotels");
+//   }
+
+//   return response.json();
+// };
 
 export const fetchHotelById = async (hotelId) => {
   const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`, {

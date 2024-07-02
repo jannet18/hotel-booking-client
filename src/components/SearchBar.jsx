@@ -6,12 +6,15 @@ import { useNavigate } from "react-router-dom";
 function SearchBar() {
   const search = useSearchContext();
   const navigate = useNavigate();
-
-  const [destination, setDestination] = useState(search?.destination);
-  const [checkIn, setCheckIn] = useState(search?.checkIn);
-  const [checkOut, setCheckOut] = useState(search?.checkOut);
-  const [adultCount, setAdultCount] = useState(search?.adultCount);
-  const [childCount, setChildCount] = useState(search?.childCount);
+  const [destination, setDestination] = useState(search?.destination || "");
+  const [checkIn, setCheckIn] = useState(
+    search?.checkIn ? new Date(search.checkIn) : null
+  );
+  const [checkOut, setCheckOut] = useState(
+    search?.checkOut ? new Date(search.checkOut) : null
+  );
+  const [adultCount, setAdultCount] = useState(search?.adultCount || 1);
+  const [childCount, setChildCount] = useState(search?.childCount || 0);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,7 +28,7 @@ function SearchBar() {
     navigate("/search");
   };
 
-  const minDate = new Date();
+  const minDate = new Date().toISOString();
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
   return (
@@ -54,7 +57,7 @@ function SearchBar() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="size-4 -ml-3"
+          className="size-4 -ml-3.5"
         >
           <path
             strokeLinecap="round"
@@ -62,6 +65,7 @@ function SearchBar() {
             d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
           />
         </svg>
+
         <input
           type="text"
           placeholder="Where are you going?"
@@ -70,7 +74,7 @@ function SearchBar() {
           onChange={(event) => setDestination(event.target.value)}
         />
       </div>
-      <div className="flex justify-between bg-white px-2 py-1 gap-2">
+      <div className="flex bg-white px-2 py-1 gap-2">
         <label className="items-center flex">
           Adults:
           <input
@@ -78,7 +82,6 @@ function SearchBar() {
             className="w-full p-1 focus:outline-none font-bold "
             min={1}
             max={20}
-            defaultValue={1}
             value={adultCount}
             onChange={(event) => {
               setAdultCount(parseInt(event.target.value));
@@ -91,7 +94,6 @@ function SearchBar() {
             type="number"
             className="w-full p-1 focus:outline-none font-bold "
             min={0}
-            defaultValue={0}
             max={20}
             value={childCount}
             onChange={(event) => {
@@ -102,6 +104,7 @@ function SearchBar() {
       </div>
       <div>
         <DatePicker
+          // dateFormat="MM-DD-YYYY"
           selected={checkIn}
           onChange={(date) => setCheckIn(date)}
           selectsStart
@@ -109,21 +112,22 @@ function SearchBar() {
           endDate={checkOut}
           minDate={minDate}
           maxDate={maxDate}
-          placeholderText="Check-in Date"
+          placeholderText="Check-In Date"
           className="min-w-full bg-white p-2 focus:outline-none"
           wrapperClassName="min-w-full"
         />
       </div>
       <div>
         <DatePicker
+          // dateFormat="MM-DD-YYYY"
           selected={checkOut}
           onChange={(date) => setCheckOut(date)}
-          selectsStart
+          selectsEnd
           startDate={checkIn}
           endDate={checkOut}
           minDate={minDate}
           maxDate={maxDate}
-          placeholderText="Check-in Date"
+          placeholderText="Check-Out Date"
           className="min-w-full bg-white p-2 focus:outline-none"
           wrapperClassName="min-w-full"
         />
@@ -132,7 +136,16 @@ function SearchBar() {
         <button className="w-2/3 bg-blue-600 text-white h-full p-2 font-bold text-xl hover:bg-blue-500">
           Search
         </button>
-        <button className="w-1/3 bg-red-600 text-white h-full p-2 font-bold text-xl hover:bg-red-500">
+        <button
+          onClick={() => {
+            setDestination("");
+            setCheckIn(null);
+            setCheckOut(null);
+            setAdultCount(1);
+            setChildCount(0);
+          }}
+          className="w-1/3 bg-red-600 text-white h-full p-2 font-bold text-xl hover:bg-red-500"
+        >
           Clear
         </button>
       </div>

@@ -25,7 +25,7 @@ function MyHotels() {
         <h1 className="text-3xl font-bold">My Hotels</h1>
         <Link
           to="/add-hotel"
-          className="flex bg-blue-600 text-white text-xl font-bold p-2 hover:bg-blue-400"
+          className="flex bg-blue-600 rounded-sm text-white text-xl font-bold p-2 hover:bg-blue-400"
         >
           Add Hotel
         </Link>
@@ -34,7 +34,7 @@ function MyHotels() {
         {data?.map((hotel, i) => (
           <div
             key={i}
-            className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
+            className="flex flex-col justify-between border border-slate-300 rounded-sm p-8 gap-5"
           >
             <h2 className="text-2xl font-bold">{hotel.name}</h2>
             <div className="whitespace-pre-line">{hotel.description}</div>

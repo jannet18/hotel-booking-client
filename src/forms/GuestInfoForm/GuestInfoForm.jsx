@@ -3,16 +3,11 @@ import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
 import { useSearchContext } from "../../contexts/SearchContext";
 import { useAppContext } from "../../contexts/AppContext";
-
-// const GuestInfoFormData = {
-//   checkIn: Date,
-//   checkOut: Date,
-//   adultCount: Number,
-//   childCount: Number,
-// };
+import { Link, useNavigate } from "react-router-dom";
 
 function GuestInfoForm({ hotelId, pricePerNight }) {
   const search = useSearchContext();
+  const navigate = useNavigate();
   const { isLoggedIn } = useAppContext();
   const {
     register,
@@ -35,10 +30,36 @@ function GuestInfoForm({ hotelId, pricePerNight }) {
   const minDate = new Date();
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
+
+  const onSignIClick = (data) => {
+    search.saveSearchValues(
+      "",
+      data.checkIn,
+      data.checkOut,
+      data.adultCount,
+      data.childCount
+    );
+    navigate("/login", { state: { from: location } });
+  };
+
+  const onSubmit = (data) => {
+    search?.saveSearchValues(
+      "",
+      data.checkIn,
+      data.checkOut,
+      data.adultCount,
+      data.childCount
+    );
+    navigate(`/hotel/${hotelId}/booking`);
+  };
   return (
     <div className="bg-blue-200 flex flex-col p-4 gap-4">
       <h3 className="text-md font-bold">Ksh {pricePerNight}</h3>
-      <form action="">
+      <form
+        onSubmit={
+          isLoggedIn ? handleSubmit(onSubmit) : handleSubmit(onSignIClick)
+        }
+      >
         <div className="grid grid-cols-1 gap-4 items-center">
           <div>
             <DatePicker
@@ -107,13 +128,13 @@ function GuestInfoForm({ hotelId, pricePerNight }) {
               )}
             </div>
           </div>
-          {isLoggedIn ? (
+          {isLoggedIn && isLoggedIn ? (
             <button className="bg-blue-600 text-white h-full p-2 font-bold hover:bg-blue-500 text-xl">
               Book Now
             </button>
           ) : (
             <button className="bg-blue-600 text-white h-full p-2 font-bold hover:bg-blue-500 text-xl">
-              Sign In to Book
+              Sign in to Book
             </button>
           )}
         </div>
