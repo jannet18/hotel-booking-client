@@ -81,7 +81,7 @@ function GuestInfoForm({ hotelId, pricePerNight }) {
               required
               selected={checkOut}
               onChange={(date) => setValue("checkOut", date)}
-              selectsStart
+              selectsEnd
               startDate={checkOut}
               endDate={checkOut}
               minDate={minDate}

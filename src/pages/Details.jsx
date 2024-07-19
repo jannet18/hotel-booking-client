@@ -34,6 +34,7 @@ function Details() {
             </svg>
           </span>
         ))}
+        <h1 className="text-3xl font-bold ml-12 ">{hotel?.name}</h1>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {hotel?.imageUrls?.map((image, i) => (
@@ -49,8 +50,8 @@ function Details() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
         {hotel?.facilities?.map((facility, i) => (
-          <div key={i} className="border border-slate-300 rounded-sm p-3">
-            <span className="border">{facility}</span>
+          <div key={i} className="flex flex-row gap-3">
+            {facility}
           </div>
         ))}
       </div>

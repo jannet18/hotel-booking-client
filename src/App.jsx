@@ -46,7 +46,7 @@ function App() {
           <>
             <Route
               exact
-              path="/hotels/:hotelId/booking"
+              path="/hotel/:hotelId/booking"
               element={
                 <Layout>
                   <Booking />

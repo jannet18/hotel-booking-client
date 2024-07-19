@@ -67,7 +67,7 @@ function SearchBar() {
         </svg>
 
         <input
-          type="text"
+          // type="text"
           placeholder="Where are you going?"
           className="text-md w-full focus:outline-none"
           value={destination || ""}
