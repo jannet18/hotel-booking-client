@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppContext } from "../contexts/AppContext";
+import appContext from "../contexts/AppContext";
 import LogOutButton from "./LogOutButton.jsx";
 
 function Header() {
   const [menu, setMenu] = useState(false);
-  const { isLoggedIn, isLoading } = useAppContext();
+  const { isLoggedIn, isLoading } = useContext(appContext);
 
   if (isLoading) {
     return null;
@@ -229,10 +229,10 @@ function Header() {
 
 export default Header;
 // import { Link } from "react-router-dom";
-// import { useAppContext } from "../contexts/AppContext";
+// import { useappContext } from "../contexts/appContext";
 // import LogOutButton from "./LogOutButton";
 // const Header = () => {
-//   const { isLoggedIn } = useAppContext();
+//   const { isLoggedIn } = useContext(appContext);
 
 //   return (
 //     <div className="bg-blue-800 py-6">

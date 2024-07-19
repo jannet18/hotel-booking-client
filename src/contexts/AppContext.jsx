@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Toast from "../components/Toast";
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
@@ -6,11 +6,11 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const STRIPE_PUB_KEY = import.meta.env.VITE_STRIPE_PUB_KEY || "";
 
-const AppContext = React.createContext();
+const appContext = React.createContext();
 
 const stripePromise = loadStripe(STRIPE_PUB_KEY);
 
-export const AppContextProvider = ({ children }) => {
+const AppContext = ({ children }) => {
   const [toast, setToast] = useState(undefined);
 
   const { isError } = useQuery("validate-token", apiClient.validateToken, {
@@ -25,7 +25,7 @@ export const AppContextProvider = ({ children }) => {
   // }, [isError]);
 
   return (
-    <AppContext.Provider
+    <AppContext
       value={{
         showToast: (toastMessage) => {
           setToast(toastMessage);
@@ -42,12 +42,10 @@ export const AppContextProvider = ({ children }) => {
         />
       )}
       {children}
-    </AppContext.Provider>
+    </AppContext>
   );
 };
 
-// export default AppContext;
-export const useAppContext = () => {
-  const context = useContext(AppContext);
-  return context;
-};
+export { appContext };
+
+export default AppContext;

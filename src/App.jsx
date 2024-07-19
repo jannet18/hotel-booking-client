@@ -5,14 +5,15 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
 import AddHotel from "./pages/AddHotel";
-import { useAppContext } from "./contexts/AppContext";
 import MyHotels from "./pages/MyHotels";
 import EditHotel from "./pages/EditHotel";
 import Details from "./pages/Details";
 import Booking from "./pages/Booking";
+import { useContext } from "react";
+import { appContext } from "./contexts/AppContext";
 
 function App() {
-  const { isLoggedIn } = useAppContext();
+  const { isLoggedIn } = useContext(appContext);
   return (
     <>
       <Routes>

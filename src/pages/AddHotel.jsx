@@ -1,11 +1,11 @@
 import { useMutation } from "react-query";
-import { useAppContext } from "../contexts/AppContext";
+import appContext from "../contexts/AppContext";
 import * as apiClient from "../api-client";
 import ManageHotelForm from "../forms/ManageHotelForm/ManageHotelForm";
 import { useNavigate } from "react-router-dom";
 
 const AddHotel = () => {
-  const { showToast } = useAppContext();
+  const { showToast } = useContext(appContext);
   const navigate = useNavigate();
   const { mutate, isLoading } = useMutation(apiClient.addMyHotel, {
     onSuccess: () => {

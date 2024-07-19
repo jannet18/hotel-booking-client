@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as apiClient from "../api-client";
 import BookingForm from "../forms/BookingForm/BookingForm";
 import { useQuery } from "react-query";
 import { useSearchContext } from "../contexts/SearchContext";
 import { useParams } from "react-router-dom";
 import BookingDetailsSummary from "../components/BookingDetailsSummary";
-import { useAppContext } from "../contexts/AppContext";
+import { appContext } from "../contexts/AppContext";
 
 function Booking() {
-  const { stripePromise } = useAppContext();
+  const { stripePromise } = useContext(appContext);
   const search = useSearchContext();
   const { hotelId } = useParams();
   const [numberOfNights, setNumberOfNights] = useState(0);

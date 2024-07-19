@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useSearchContext } from "../../contexts/SearchContext";
 import { useMutation } from "react-query";
-import { useAppContext } from "../../contexts/AppContext";
 import * as apiClient from "../../api-client";
+import { appContext } from "../../contexts/AppContext";
 
 function BookingForm({ currentUser, paymentIntent }) {
   const elements = useElements();
   const stripe = useStripe();
   const search = useSearchContext();
   const { hotelId } = useParams();
-  const { showToast } = useAppContext();
+  const { showToast } = useContext(appContext);
 
   const { mutate: bookRoom, isLoading } = useMutation(
     apiClient.createRoomBooking,

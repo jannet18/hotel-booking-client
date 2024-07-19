@@ -4,8 +4,9 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { AppContextProvider } from "./contexts/AppContext.jsx";
 import { SearchContextProvider } from "./contexts/SearchContext.jsx";
+import AppContext from "./contexts/AppContext.jsx";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -18,11 +19,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <AppContextProvider>
+        <AppContext>
           <SearchContextProvider>
             <App />
           </SearchContextProvider>
-        </AppContextProvider>
+        </AppContext>
       </QueryClientProvider>
     </React.StrictMode>
   </BrowserRouter>

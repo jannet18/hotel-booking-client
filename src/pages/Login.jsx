@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../api-client";
-import { useAppContext } from "../contexts/AppContext";
+import appContext from "../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const { showToast } = useAppContext();
+  const { showToast } = useContext(appContext);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const {
