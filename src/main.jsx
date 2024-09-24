@@ -4,8 +4,8 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { SearchContextProvider } from "./contexts/SearchContext.jsx";
-import { AppContextProvider } from "./contexts/AppContext.jsx";
-
+import { AppContextProvider, useAppContext } from "./contexts/AppContext.jsx";
+// useAppContext = AppContextProvider;
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

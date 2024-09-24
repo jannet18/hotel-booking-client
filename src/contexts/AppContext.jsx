@@ -4,7 +4,7 @@
 // import * as apiClient from "../api-client";
 // import { loadStripe } from "@stripe/stripe-js";
 
-import { createContext, useContext } from "react";
+// import { createContext, useContext } from "react";
 
 // const STRIPE_PUB_KEY = import.meta.env.VITE_STRIPE_PUB_KEY || "";
 
@@ -52,7 +52,7 @@ import { createContext, useContext } from "react";
 
 // export default AppContext;
 
-import React, { useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import Toast from "../components/Toast";
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
@@ -93,7 +93,14 @@ export const AppContextProvider = ({ children }) => {
   );
 };
 
+// export default function useAppContext() {
+//   const context = useContext(AppContext);
+//   return context;
+// }
 export const useAppContext = () => {
   const context = useContext(AppContext);
+  if (context === undefined) {
+    throw new Error("useAppContext must be used within an AppContextProvider");
+  }
   return context;
 };
