@@ -10,10 +10,10 @@ import EditHotel from "./pages/EditHotel";
 import Details from "./pages/Details";
 import Booking from "./pages/Booking";
 import { useContext } from "react";
-import { appContext } from "./contexts/AppContext";
+import { app-context } from "./contexts/app-context";
 
-function App() {
-  const { isLoggedIn } = useContext(appContext);
+function app-context() {
+  const { isLoggedIn } = useContext(app-context);
   return (
     <>
       <Routes>
@@ -91,4 +91,4 @@ function App() {
   );
 }
 
-export default App;
+export default app-context;

@@ -114,7 +114,7 @@ function SearchBar() {
           maxDate={maxDate}
           placeholderText="Check-In Date"
           className="min-w-full bg-white p-2 focus:outline-none"
-          wrapperClassName="min-w-full"
+          wrapp-contexterClassName="min-w-full"
         />
       </div>
       <div>
@@ -129,7 +129,7 @@ function SearchBar() {
           maxDate={maxDate}
           placeholderText="Check-Out Date"
           className="min-w-full bg-white p-2 focus:outline-none"
-          wrapperClassName="min-w-full"
+          wrapp-contexterClassName="min-w-full"
         />
       </div>
       <div className="flex gap-1">

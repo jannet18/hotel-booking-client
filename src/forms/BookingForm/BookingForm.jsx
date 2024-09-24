@@ -4,14 +4,14 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useSearchContext } from "../../contexts/SearchContext";
 import { useMutation } from "react-query";
 import * as apiClient from "../../api-client";
-import { appContext } from "../../contexts/AppContext";
+import { applicationContext } from "../../contexts/app-context";
 
 function BookingForm({ currentUser, paymentIntent }) {
   const elements = useElements();
   const stripe = useStripe();
   const search = useSearchContext();
   const { hotelId } = useParams();
-  const { showToast } = useContext(appContext);
+  const { showToast } = useContext(app - context);
 
   const { mutate: bookRoom, isLoading } = useMutation(
     apiClient.createRoomBooking,

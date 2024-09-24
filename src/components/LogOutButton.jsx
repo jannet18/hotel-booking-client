@@ -1,12 +1,12 @@
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../api-client";
-import appContext from "../contexts/AppContext";
+import app-context from "../contexts/app-context";
 import { useNavigate } from "react-router-dom";
 
 function LogOutButton() {
   const queryClient = useQueryClient();
-  const { showToast } = useContext(appContext);
+  const { showToast } = useContext(app-context);
   const navigate = useNavigate();
 
   const mutation = useMutation(apiClient.logOut, {

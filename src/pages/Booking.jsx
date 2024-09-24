@@ -5,10 +5,10 @@ import { useQuery } from "react-query";
 import { useSearchContext } from "../contexts/SearchContext";
 import { useParams } from "react-router-dom";
 import BookingDetailsSummary from "../components/BookingDetailsSummary";
-import { appContext } from "../contexts/AppContext";
+import { applicationContext } from "../contexts/app-context";
 
 function Booking() {
-  const { stripePromise } = useContext(appContext);
+  const { stripePromise } = useContext(applicationContext);
   const search = useSearchContext();
   const { hotelId } = useParams();
   const [numberOfNights, setNumberOfNights] = useState(0);

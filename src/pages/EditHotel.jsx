@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import ManageHotelForm from "../forms/ManageHotelForm/ManageHotelForm";
 import { useMutation, useQuery } from "react-query";
 import * as apiClient from "../api-client";
-import appContext from "../contexts/AppContext";
+import app-context from "../contexts/app-context";
 
 // function EditHotel() {
 //   const { hotelId } = useParams();
-//   const { showToast } = useContext(appContext);
+//   const { showToast } = useContext(app-context);
 //   const navigate = useNavigate();
 //   const { data } = useQuery(
 //     ["fetchMyHotelById", hotelId],
@@ -44,7 +44,7 @@ import appContext from "../contexts/AppContext";
 
 const EditHotel = () => {
   const { hotelId } = useParams();
-  const { showToast } = useContext(appContext);
+  const { showToast } = useContext(app-context);
   const navigate = useNavigate();
   const { data } = useQuery(
     "fetchMyHotelById",

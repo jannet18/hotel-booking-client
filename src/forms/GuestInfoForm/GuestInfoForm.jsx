@@ -3,12 +3,12 @@ import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
 import { useSearchContext } from "../../contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
-import { appContext } from "../../contexts/AppContext";
+import { app-context } from "../../contexts/app-context";
 
 function GuestInfoForm({ hotelId, pricePerNight }) {
   const search = useSearchContext();
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(appContext);
+  const { isLoggedIn } = useContext(app-context);
   const {
     register,
     watch,
@@ -73,7 +73,7 @@ function GuestInfoForm({ hotelId, pricePerNight }) {
               maxDate={maxDate}
               placeholderText="Check-in Date"
               className="min-w-full bg-white p-2 focus:outline-none"
-              wrapperClassName="min-w-full"
+              wrapp-contexterClassName="min-w-full"
             />
           </div>
           <div>
@@ -88,7 +88,7 @@ function GuestInfoForm({ hotelId, pricePerNight }) {
               maxDate={maxDate}
               placeholderText="Check-Out Date"
               className="min-w-full bg-white p-2 focus:outline-none"
-              wrapperClassName="min-w-full"
+              wrapp-contexterClassName="min-w-full"
             />
             <div className="flex justify-between bg-white px-2 py-1 gap-2">
               <label className="items-center flex">
