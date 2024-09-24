@@ -34,7 +34,7 @@ function SearchBar() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="-mt-8 bg-orange-400 rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4"
+      className="-mt-8 bg-[#ff5a3b] rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4"
     >
       <div className="flex flex-row items-center flex-1 bg-white p-2 ">
         <svg
@@ -144,7 +144,7 @@ function SearchBar() {
             setAdultCount(1);
             setChildCount(0);
           }}
-          className="w-1/3 bg-red-600 text-white h-full p-2 font-bold text-xl hover:bg-red-500"
+          className="w-1/3 bg-white text-[#333] h-full p-2 font-bold text-xl hover:bg-[#8febeb]"
         >
           Clear
         </button>

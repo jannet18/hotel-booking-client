@@ -3,12 +3,13 @@ import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
 import { useSearchContext } from "../../contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
-import { app-context } from "../../contexts/app-context";
+import App from "../../App";
+// import { app-context } from "../../contexts/app-context";
 
 function GuestInfoForm({ hotelId, pricePerNight }) {
   const search = useSearchContext();
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(app-context);
+  const { isLoggedIn } = useContext(App);
   const {
     register,
     watch,

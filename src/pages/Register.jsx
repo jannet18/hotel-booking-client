@@ -5,12 +5,12 @@ import { useForm } from "react-hook-form";
 import * as apiClient from "../api-client";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
-import app-context from "../contexts/app-context.jsx";
+import { useAppContext } from "../contexts/AppContext";
 
 function Register() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { showToast } = useContext(app-context);
+  const { showToast } = useAppContext;
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -48,7 +48,7 @@ function Register() {
 
   const onSubmit = handleSubmit((data) => {
     mutation.mutate(data);
-    // console.log(data);
+    console.log(data);
     // try {
     //   const response = await apiClient.register(data);
     //   if (response.success) {

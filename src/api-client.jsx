@@ -12,36 +12,36 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 //   return response.json();
 // };
 
-export const fetchCurrentUser = async () => {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 seconds timeout
+// export const fetchCurrentUser = async () => {
+//   const controller = new AbortController();
+//   const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 seconds timeout
 
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/users/me`, {
-      credentials: "include",
-      signal: controller.signal,
-    });
-    clearTimeout(timeoutId);
+//   try {
+//     const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+//       credentials: "include",
+//       signal: controller.signal,
+//     });
+//     clearTimeout(timeoutId);
 
-    if (!response.ok) {
-      throw new Error("Error fetching user");
-    }
-    return response.json();
-  } catch (error) {
-    clearTimeout(timeoutId);
-    if (error.name === "AbortError") {
-      throw new Error("Request timed out");
-    }
-    throw error;
-  }
-};
+//     if (!response.ok) {
+//       throw new Error("Error fetching user");
+//     }
+//     return response.json();
+//   } catch (error) {
+//     clearTimeout(timeoutId);
+//     if (error.name === "AbortError") {
+//       throw new Error("Request timed out");
+//     }
+//     throw error;
+//   }
+// };
 
 export const register = async (formData) => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/users/register`, {
       method: "POST",
       headers: {
-        "Content-Type": "app-contextlication/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
       credentials: "include",
@@ -61,7 +61,7 @@ export const login = async (formData) => {
     method: "POST",
     credentials: "include",
     headers: {
-      "Content-Type": "app-contextlication/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(formData),
   });
@@ -160,24 +160,24 @@ export const updateMyHotelById = async (formData) => {
 
 export const searchHotels = async (searchParams) => {
   const queryParams = new URLSearchParams();
-  queryParams.app - contextend("destination", searchParams?.destination || "");
-  queryParams.app - contextend("checkIn", searchParams?.checkIn || "");
-  queryParams.app - contextend("checkOut", searchParams?.checkOut || "");
-  queryParams.app - contextend("adultCount", searchParams?.adultCount || "");
-  queryParams.app - contextend("childCount", searchParams?.childCount || "");
-  queryParams.app - contextend("page", searchParams?.page || "");
-  queryParams.app - contextend("maxPrice", searchParams?.maxprice || "");
-  queryParams.app - contextend("sortOption", searchParams?.sortOption || "");
+  queryParams.append("destination", searchParams?.destination || "");
+  queryParams.append("checkIn", searchParams?.checkIn || "");
+  queryParams.append("checkOut", searchParams?.checkOut || "");
+  queryParams.append("adultCount", searchParams?.adultCount || "");
+  queryParams.append("childCount", searchParams?.childCount || "");
+  queryParams.append("page", searchParams?.page || "");
+  queryParams.append("maxPrice", searchParams?.maxprice || "");
+  queryParams.append("sortOption", searchParams?.sortOption || "");
 
   searchParams.types?.forEach((type) => {
-    queryParams.app - contextend("types", type);
+    queryParams.append("types", type);
   });
   searchParams.facilities?.forEach((facility) => {
-    queryParams.app - contextend("facilities", facility);
+    queryParams.append("facilities", facility);
   });
 
   searchParams.stars?.forEach((star) => {
-    queryParams.app - contextend("stars", star);
+    queryParams.append("stars", star);
   });
   // console.log("Search Parameters:", searchParams); // Debug statement
   // console.log("Query Params String:", queryParams);
@@ -202,31 +202,31 @@ export const fetchHotelById = async (hotelId) => {
   return response.json();
 };
 
-export const createPaymentIntent = async (hotelId, numberOfNights) => {
-  try {
-    const response = await fetch(
-      `/api/hotels/${hotelId}/bookings/payment-intent`,
-      {
-        credentials: "include",
-        method: "POST",
-        body: JSON.stringify({ numberOfNights }),
-        headers: {
-          "Content-Type": "app-contextlication/json",
-        },
-      }
-    );
+// export const createPaymentIntent = async (hotelId, numberOfNights) => {
+//   try {
+//     const response = await fetch(
+//       `/api/hotels/${hotelId}/bookings/payment-intent`,
+//       {
+//         credentials: "include",
+//         method: "POST",
+//         body: JSON.stringify({ numberOfNights }),
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      // throw new Error("Error fetching payment intent ");
-      throw new Error(`Error fetching payment intent: ${errorData.message}`);
-    }
+//     if (!response.ok) {
+//       const errorData = await response.json();
+//       // throw new Error("Error fetching payment intent ");
+//       throw new Error(`Error fetching payment intent: ${errorData.message}`);
+//     }
 
-    return response.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
+//     return response.json();
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const createRoomBooking = async (formData) => {
   const response = await fetch(
@@ -234,7 +234,7 @@ export const createRoomBooking = async (formData) => {
     {
       method: "POST",
       headers: {
-        "Content-Type": "app-contextlication/json",
+        "Content-Type": "application/json",
       },
       credentials: "include",
       body: JSON.stringify(formData),

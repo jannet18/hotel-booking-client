@@ -9,11 +9,10 @@ import MyHotels from "./pages/MyHotels";
 import EditHotel from "./pages/EditHotel";
 import Details from "./pages/Details";
 import Booking from "./pages/Booking";
-import { useContext } from "react";
-import { app-context } from "./contexts/app-context";
+import { useAppContext } from "./contexts/AppContext";
 
-function app-context() {
-  const { isLoggedIn } = useContext(app-context);
+function App() {
+  const { isLoggedIn } = useAppContext();
   return (
     <>
       <Routes>
@@ -91,4 +90,4 @@ function app-context() {
   );
 }
 
-export default app-context;
+export default App;

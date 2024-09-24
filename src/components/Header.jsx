@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import app-context from "../contexts/app-context";
 import LogOutButton from "./LogOutButton.jsx";
+import { useAppContext } from "../contexts/AppContext.jsx";
 
 function Header() {
   const [menu, setMenu] = useState(false);
-  const { isLoggedIn, isLoading } = useContext(app-context);
+  const { isLoggedIn, isLoading } = useAppContext;
 
   if (isLoading) {
     return null;
   }
   return (
-    <nav className="bg-blue-800">
+    <nav className="bg-[#0A2C3D] ">
       <div className="container mx-auto flex items-center justify-between px-3 py-3">
         <div>
           <span className="text-3xl font-bold text-white">
@@ -20,19 +20,19 @@ function Header() {
         </div>
         <div className="hidden sm:flex flex-row items-center justify-center gap-4 ">
           <button
-            className="text-white hover:bg-blue-600 rounded-sm p-1"
+            className="text-white hover:text-[#ff5a3b] rounded-sm p-1"
             type="button"
           >
             Kes
           </button>
           <button
-            className="text-white hover:bg-blue-600 rounded-sm p-1"
+            className="text-white hover:text-[#ff5a3b] rounded-sm p-1"
             type="button"
           >
             Flag
           </button>
           <button
-            className="text-white hover:bg-blue-600 rounded-sm p-1"
+            className="text-white hover:text-[#ff5a3b] rounded-sm p-1"
             type="button"
           >
             <svg
