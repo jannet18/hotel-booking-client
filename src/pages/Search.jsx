@@ -236,8 +236,8 @@ function Search() {
         {/* Results Header */}
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold capitalize">
-            {data?.pagination?.total} Hotels found
-            {search.destination ? ` in ${search.destination}` : ""}
+            {data?.pagination?.total || 0} Hotels found
+            {search?.destination ? ` in ${search?.destination}` : ""}
           </span>
 
           <select
@@ -258,6 +258,9 @@ function Search() {
             data.data?.map((hotel, id) => (
               <SearchResultsCard key={id} id={data._id} hotel={hotel} />
             ))}
+          {/* {data?.data?.map((hotel, id) => (
+            <SearchResultsCard key={id} id={hotel._id} hotel={hotel} />
+          ))} */}
         </div>
 
         {/* Pagination */}

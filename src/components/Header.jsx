@@ -5,7 +5,7 @@ import { useAppContext } from "../contexts/AppContext.jsx";
 
 function Header() {
   const [menu, setMenu] = useState(false);
-  const { isLoggedIn, isLoading } = useAppContext;
+  const { isLoggedIn, isLoading } = useAppContext();
 
   if (isLoading) {
     return null;
@@ -51,7 +51,7 @@ function Header() {
             </svg>
           </button>
 
-          {isLoggedIn ? (
+          {isLoggedIn && isLoggedIn ? (
             <>
               <Link
                 to="/add-hotel"
@@ -228,47 +228,3 @@ function Header() {
 }
 
 export default Header;
-// import { Link } from "react-router-dom";
-// import { useapp-context } from "../contexts/app-context";
-// import LogOutButton from "./LogOutButton";
-// const Header = () => {
-//   const { isLoggedIn } = useContext(app-context);
-
-//   return (
-//     <div className="bg-blue-800 py-6">
-//       <div className="container mx-auto flex justify-between">
-//         <span className="text-3xl text-white font-bold tracking-tight">
-//           <Link to="/">MernHolidays.com</Link>
-//         </span>
-//         <span className="flex space-x-2">
-//           {isLoggedIn ? (
-//             <>
-//               <Link
-//                 className="flex items-center text-white px-3 font-bold hover:bg-blue-600"
-//                 to="/my-bookings"
-//               >
-//                 <button type="button">My Bookings</button>
-//               </Link>
-//               <Link
-//                 className="flex items-center text-white px-3 font-bold hover:bg-blue-600"
-//                 to="/my-hotels"
-//               >
-//                 <button type="button"> My Hotels</button>
-//               </Link>
-//               <LogOutButton />
-//             </>
-//           ) : (
-//             <Link
-//               to="/login"
-//               className="flex bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100"
-//             >
-//               Sign In
-//             </Link>
-//           )}
-//         </span>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Header;

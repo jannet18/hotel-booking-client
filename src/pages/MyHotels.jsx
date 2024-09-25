@@ -12,7 +12,10 @@ function MyHotels() {
     }
   );
 
-  console.log(hotelsData);
+  // console.log(hotelsData);
+  const hotels = hotelsData?.data || hotelsData || [];
+  console.log(hotels);
+
   if (isLoading) {
     return <span>Loading...</span>;
   }
@@ -31,8 +34,8 @@ function MyHotels() {
         </Link>
       </span>
       <div className="grid grid-cols-1 gap-8">
-        {hotelsData &&
-          hotelsData?.map((hotel, i) => (
+        {hotels &&
+          hotels?.map((hotel, i) => (
             <div
               key={i}
               className="flex flex-col justify-between border border-slate-300 rounded-sm p-8 gap-5"

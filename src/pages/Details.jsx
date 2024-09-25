@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import * as apiClient from "../api-client";
 import GuestInfoForm from "../forms/GuestInfoForm/GuestInfoForm";
+
 function Details() {
   const { hotelId } = useParams();
 
@@ -13,6 +14,8 @@ function Details() {
       enabled: !!hotelId,
     }
   );
+
+  // console.log(hotel);
   if (!hotel) {
     return <></>;
   }

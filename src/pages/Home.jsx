@@ -1,10 +1,9 @@
 import React from "react";
 import { useQuery } from "react-query";
+import * as apiClient from "../api-client";
 
 function Home() {
-  const { data: hotels } = useQuery("fetchQuery", () =>
-    apiClient.fetchHotels()
-  );
+  const { data: hotels } = useQuery("fetchQuery", () => apiClient.fetchHotels);
 
   const topRowHotels = hotels?.slice(0, 2) || [];
   const bottomRowHotels = hotels?.slice(2) || [];

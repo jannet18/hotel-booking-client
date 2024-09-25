@@ -42,8 +42,12 @@ function Booking() {
     "fetchCurrentUser",
     apiClient.fetchCurrentUser
   );
-  //   console.log(currentUser);
-  //   console.log(hotelId);
+  // console.log(currentUser);
+  // console.log(hotelId);
+  if (!hotel) {
+    return <></>;
+  }
+
   if (hotelError || paymentIntentError || currentUserError) {
     console.error("Error fetching data:", {
       hotelError,
@@ -52,9 +56,7 @@ function Booking() {
     });
     return <div>Error loading booking data. Please try again later.</div>;
   }
-  if (!hotel) {
-    return <></>;
-  }
+
   return (
     <div className="grid md:grid-cols-[1fr_2fr] gap-6">
       <BookingDetailsSummary
