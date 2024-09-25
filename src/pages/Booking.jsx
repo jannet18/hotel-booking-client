@@ -6,9 +6,10 @@ import { useSearchContext } from "../contexts/SearchContext";
 import { useParams } from "react-router-dom";
 import BookingDetailsSummary from "../components/BookingDetailsSummary";
 import { useAppContext } from "../contexts/AppContext";
+import { Elements } from "@stripe/react-stripe-js";
 
 function Booking() {
-  const { stripePromise } = useAppContext;
+  const { stripePromise } = useAppContext();
   const search = useSearchContext();
   const { hotelId } = useParams();
   const [numberOfNights, setNumberOfNights] = useState(0);
@@ -18,7 +19,7 @@ function Booking() {
       const nights =
         Math.abs((search?.checkOut).getTime() - search?.checkIn.getTime()) /
         (1000 * 60 * 60 * 24);
-      setNumberOfNights(Math.ceil(nights));
+      setNumberOfNights(Math?.ceil(nights));
     }
   }, [search.checkIn, search.checkOut]);
 
@@ -29,7 +30,7 @@ function Booking() {
       enabled: !!hotelId && numberOfNights > 0,
     }
   );
-  console.log(paymentIntentData);
+  // console.log(paymentIntentData);
 
   const { data: hotel, error: hotelError } = useQuery(
     "fetchHotelById",

@@ -90,7 +90,7 @@ function GuestInfoForm({ hotelId, pricePerNight }) {
               className="min-w-full bg-white p-2 focus:outline-none"
               wrapp-contexterClassName="min-w-full"
             />
-            <div className="flex justify-between bg-white px-2 py-1 gap-2">
+            <div className="flex justify-between bg-white px-2 py-1 gap-2 my-4">
               <label className="items-center flex">
                 Adults:
                 <input

@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useSearchContext } from "../../contexts/SearchContext";
 import { useMutation } from "react-query";
 import * as apiClient from "../../api-client";
 import { useAppContext } from "../../contexts/AppContext";
+import { useParams } from "react-router-dom";
 
 function BookingForm({ currentUser, paymentIntent }) {
   const elements = useElements();
@@ -17,6 +18,7 @@ function BookingForm({ currentUser, paymentIntent }) {
     apiClient.createRoomBooking,
     {
       onSuccess: () => {
+        // console.log("Booking saved successfully", data);
         showToast({ message: "Booking saved!", type: "SUCCESS" });
       },
       onError: () => {
@@ -29,7 +31,7 @@ function BookingForm({ currentUser, paymentIntent }) {
       firstName: currentUser?.firstName,
       lastName: currentUser?.lastName,
       email: currentUser?.email,
-      adultcount: search?.adultcount,
+      adultCount: search?.adultCount,
       childCount: search?.childCount,
       checkIn: search?.checkIn.toISOString(),
       checkOut: search?.checkOut.toISOString(),
@@ -54,7 +56,12 @@ function BookingForm({ currentUser, paymentIntent }) {
     );
     if (result.paymentIntent?.status === "succeeded") {
       // book room
-      bookRoom({ ...formData, paymentIntentId: result.paymentIntent.id });
+      console.log("Booking Data: ", {
+        ...formData,
+        paymentIntentId: result?.paymentIntent?.id,
+      });
+
+      bookRoom({ ...formData, paymentIntentId: result?.paymentIntent?.id });
     }
   };
   return (
@@ -99,7 +106,7 @@ function BookingForm({ currentUser, paymentIntent }) {
         <h2 className="text-xl font-semibold capitalize">Your Price Summary</h2>
         <div className="bg-blue-200 p-4 rounded-md">
           <div className="font-semibold text-lg">
-            Total Cost: Ksh{paymentIntent.totalCoast.toFixed(2)}
+            Total Cost: Ksh {(paymentIntent?.totalCost * 10)?.toFixed(2)}
           </div>
         </div>
         <div className="text-sm">Include taxes and charges</div>
@@ -108,7 +115,7 @@ function BookingForm({ currentUser, paymentIntent }) {
         <h3 className="text-xl font-semibold"> Payment Details</h3>
         <CardElement
           id="payment-element"
-          className="border rounded-md p-2 text-sm"
+          className="border rounded-md p-2 text-sm min-h-10"
         />
       </div>
       <div className="flex justify-end">

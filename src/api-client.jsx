@@ -205,7 +205,7 @@ export const fetchHotelById = async (hotelId) => {
 export const createPaymentIntent = async (hotelId, numberOfNights) => {
   try {
     const response = await fetch(
-      `/api/hotels/${hotelId}/bookings/payment-intent`,
+      `${API_BASE_URL}/api/hotels/${hotelId}/bookings/payment-intent`,
       {
         credentials: "include",
         method: "POST",
@@ -230,7 +230,7 @@ export const createPaymentIntent = async (hotelId, numberOfNights) => {
 
 export const createRoomBooking = async (formData) => {
   const response = await fetch(
-    `${API_BASE_URL}/api/hotels/${formData.hotelId}/bookings`,
+    `${API_BASE_URL}/api/hotels/${formData?.hotelId}/bookings`,
     {
       method: "POST",
       headers: {
