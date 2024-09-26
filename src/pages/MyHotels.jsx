@@ -14,7 +14,7 @@ function MyHotels() {
 
   // console.log(hotelsData);
   const hotels = hotelsData?.data || hotelsData || [];
-  console.log(hotels);
+  // console.log(hotels);
 
   if (isLoading) {
     return <span>Loading...</span>;
