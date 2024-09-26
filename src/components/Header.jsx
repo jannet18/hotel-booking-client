@@ -14,8 +14,8 @@ function Header() {
     <nav className="bg-[#0A2C3D] ">
       <div className="container mx-auto flex items-center justify-between px-3 py-3">
         <div>
-          <span className="text-3xl font-bold text-white">
-            <Link to="/">Vacay</Link>
+          <span className="text-4xl font-semibold capitalize text-white">
+            <Link to="/">Beautiful Destinations</Link>
           </span>
         </div>
         <div className="hidden sm:flex flex-row items-center justify-center gap-4 ">
@@ -135,19 +135,19 @@ function Header() {
             <div className="flex flex-col items-start gap-2">
               <button
                 type="button"
-                className="hover:text-blue-600 rounded-sm p-1"
+                className="hover:text-[#ff5a3b] rounded-sm p-1"
               >
                 KES <span>Kenyan Shilling</span>
               </button>
               <button
                 type="button"
-                className="hover:text-blue-600 rounded-sm p-1"
+                className="hover:text-[#ff5a3b] rounded-sm p-1"
               >
                 flag <span>English (UK)</span>
               </button>
               <button
                 type="button"
-                className="hover:text-blue-600 rounded-sm p-1 flex gap-2 items-center"
+                className="hover:text-[#ff5a3b] rounded-sm p-1 flex gap-2 items-center"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -169,12 +169,12 @@ function Header() {
                 <>
                   <div className="flex flex-col w-full gap-4">
                     <Link to="/my-bookings">
-                      <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
+                      <button className="bg-[#0A2C3D] text-white py-2 rounded-sm w-full hover:text-[#ff5a3b]">
                         My Bookings
                       </button>
                     </Link>
                     <Link to="/my-hotels">
-                      <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
+                      <button className="bg-[#0A2C3D] text-white py-2 rounded-sm w-full hover:text-[#ff5a3b]">
                         My Hotels
                       </button>
                     </Link>
@@ -183,11 +183,6 @@ function Header() {
                 </>
               ) : (
                 <div className="flex flex-col gap-4 w-full">
-                  {/* <Link to="/register" className="w-full">
-                    <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
-                      Register
-                    </button>
-                  </Link> */}
                   <Link to="/login" className="w-full">
                     <button className="bg-blue-600 text-white py-2 rounded-sm w-full">
                       Sign In
@@ -196,11 +191,11 @@ function Header() {
                 </div>
               )}
 
-              <div className="flex flex-col mt-6">
+              <div className="flex flex-col items-center mt-6">
                 <h3 className="font-bold text-xl">Help and Support</h3>
                 <button
                   type="button"
-                  className="hover:text-blue-600 rounded-sm p-1 flex gap-2 items-center"
+                  className="hover:text-[#ff5a3b] rounded-sm p-1 flex gap-2 items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

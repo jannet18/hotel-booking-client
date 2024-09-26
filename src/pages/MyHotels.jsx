@@ -23,7 +23,7 @@ function MyHotels() {
     return <span>No Hotel found</span>;
   }
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 m-8">
       <span className="flex justify-between">
         <h1 className="text-3xl font-bold">My Hotels</h1>
         <Link
@@ -42,7 +42,7 @@ function MyHotels() {
             >
               <h2 className="text-2xl font-bold">{hotel.name}</h2>
               <div className="whitespace-pre-line">{hotel.description}</div>
-              <div className="grid grid-cols-5 gap-2 ">
+              <div className="grid grid-cols-3 lg:grid-cols-5 gap-2 ">
                 <div className="border border-slate-300 rounded-sm p-3 flex items-center ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

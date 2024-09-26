@@ -34,9 +34,9 @@ function SearchBar() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="-mt-8 bg-[#ff5a3b] rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4"
+      className="bg-[#ff5a3b] rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4 mx-3"
     >
-      <div className="flex flex-row items-center flex-1 bg-white p-2 ">
+      <div className="flex flex-row items-center flex-1 bg-white p-2 ml-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -113,7 +113,7 @@ function SearchBar() {
           minDate={minDate}
           maxDate={maxDate}
           placeholderText="Check-In Date"
-          className="min-w-full bg-white p-2 focus:outline-none"
+          className="min-w-full bg-white p-2 ml-2 focus:outline-none"
           wrapp-contexterClassName="min-w-full"
         />
       </div>
@@ -128,7 +128,7 @@ function SearchBar() {
           minDate={minDate}
           maxDate={maxDate}
           placeholderText="Check-out Date"
-          className="min-w-full bg-white p-2 focus:outline-none"
+          className="min-w-full bg-white p-2.5 ml-2 focus:outline-none"
           wrapp-contexterClassName="min-w-full"
         />
       </div>

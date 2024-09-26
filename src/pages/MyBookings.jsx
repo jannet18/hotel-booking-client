@@ -13,7 +13,7 @@ function MyBookings() {
     return <span>No Bookings found</span>;
   }
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 m-8">
       <h1 className="text-3xl font-bold">My Bookings</h1>
       {hotels.map((hotel, i) => (
         <div
@@ -34,8 +34,8 @@ function MyBookings() {
                 {hotel.city}, {hotel.country}
               </div>
             </div>
-            {hotel.bookings.map((booking) => (
-              <div>
+            {hotel.bookings.map((booking, i) => (
+              <div key={i}>
                 <div>
                   <span className="font-bold mr-2">Dates:</span>
                   <span>
